@@ -1,0 +1,2 @@
+input_file_dir: 'input/celdas.dxf'
+output_file_name: 'bbdd_celdas'
