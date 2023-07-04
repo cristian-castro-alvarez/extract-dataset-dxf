@@ -63,4 +63,4 @@ if __name__ == '__main__':
     data = run(config=config)
     # Process & Export
     data = process_data(df=data)
-    data.to_csv('bbdd_celdas.csv')
+    data.to_csv('bbdd_celdas.csv', index=False)
