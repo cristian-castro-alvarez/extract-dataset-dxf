@@ -1,20 +1,21 @@
-import ezdxf
 from pathlib import Path
-import pandas as pd
 from typing import Dict
+
+import ezdxf
 import numpy as np
+import pandas as pd
 
 from utils.loader import load_yaml
 
 CONFIG_FILE = 'config.yaml'
 
 
-def run(config: Dict) -> pd.DataFrame:
+def run_extract_dataset(config: Dict) -> pd.DataFrame:
     """
     Creates a dataset from layers in a dxf file
     """
 
-    input_file = Path.cwd() / config['input_file_dir']
+    input_file = Path.cwd() / config['input_celdas_dir']
 
     doc = ezdxf.readfile(input_file)
     model_space = doc.modelspace()
@@ -60,7 +61,7 @@ if __name__ == '__main__':
     # Load Config
     config = load_yaml(CONFIG_FILE)
     # Extract
-    data = run(config=config)
+    data = run_extract_dataset(config=config)
     # Process & Export
     data = process_data(df=data)
     data.to_csv('bbdd_celdas.csv', index=False)

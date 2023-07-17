@@ -1,0 +1,20 @@
+fish define run_get_scalar_groups
+    local f = file.open("points_and_domains.txt", "write", "text")
+    local l = list
+    
+    local header_line = string.build("x, y, z, domain")
+    l = list.append(l, header_line)
+    
+    loop foreach sca data.scalar.list
+        local text_line = string.build("%1, %2, %3, %4",       ...
+                                       data.scalar.pos.x(sca), ...
+                                       data.scalar.pos.y(sca), ...
+                                       data.scalar.pos.z(sca), ...
+                                       data.scalar.group(sca))
+        l = list.append(l, text_line)
+    end_loop
+    
+    file.write(f, l)
+    file.close(f)
+end
+[run_get_scalar_groups]
