@@ -2,3 +2,5 @@ input_celdas_dir: 'input/celdas.dxf'
 input_dominios_dir: 'input/DOMINIOS'
 dataset:
   bbdd_celdas: 'bbdd_celdas.csv'
+  points_and_domains_start: 'points_and_domains_start.csv'
+  points_and_domains_end: 'points_and_domains_end.csv'

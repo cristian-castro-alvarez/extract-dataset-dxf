@@ -13,6 +13,7 @@ def run_cross_datasets() -> None:
     it.command("""
     model new
     model large-strain off
+    model precision 9
     """)
     
     df = pd.read_csv(DIR_CELDAS)
@@ -24,12 +25,12 @@ def run_cross_datasets() -> None:
         geom_dict[name] = name
     
     for index, row in df.iterrows():
-        it.command(f"data scalar create {row.x_i} {row.y_i} {row.z_i}")
-        it.command(f"data scalar create {row.x_f} {row.y_f} {row.z_f}")
+        it.command(f"data scalar create {row.x_i} {row.y_i} {row.z_i} group 'start'")
+        it.command(f"data scalar create {row.x_f} {row.y_f} {row.z_f} group 'end'")
     
     for key, value in geom_dict.items():
         it.command(f"""
-        data scalar group '{value}' ... 
+        data scalar group '{value}' slot 'domain' ... 
         range geometry-space '{value}' count odd direction 0 0 1
         """)
     

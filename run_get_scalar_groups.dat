@@ -1,20 +1,50 @@
-fish define run_get_scalar_groups
-    local f = file.open("points_and_domains.csv", "write", "text")
+fish define run_get_scalar_groups_start
+    file.close()
+    local f = file.open("points_and_domains_start.csv", "write", "text")
     local l = list
     
     local header_line = string.build("x, y, z, domain")
     l = list.append(l, header_line)
     
     loop foreach sca data.scalar.list
-        local text_line = string.build("%1, %2, %3, %4",       ...
-                                       data.scalar.pos.x(sca), ...
-                                       data.scalar.pos.y(sca), ...
-                                       data.scalar.pos.z(sca), ...
-                                       data.scalar.group(sca))
-        l = list.append(l, text_line)
+        if data.scalar.group(sca) = 'start'
+            local x_coord = string(float(data.scalar.pos.x(sca)), 10)
+            local y_coord = string(float(data.scalar.pos.y(sca)), 10)
+            local z_coord = string(float(data.scalar.pos.z(sca)), 10)
+            local sca_group = data.scalar.group(sca, 'domain')
+            
+            local text_line = string.build("%1, %2, %3, %4", x_coord, y_coord, z_coord, sca_group)
+            l = list.append(l, text_line)
+        end_if
     end_loop
     
     file.write(f, l)
     file.close(f)
 end
-[run_get_scalar_groups]
+[run_get_scalar_groups_start]
+
+
+fish define run_get_scalar_groups_end
+    file.close()
+    local f = file.open("points_and_domains_end.csv", "write", "text")
+    local l = list
+    
+    local header_line = string.build("x, y, z, domain")
+    l = list.append(l, header_line)
+    
+    loop foreach sca data.scalar.list
+        if data.scalar.group(sca) = 'end'
+            local x_coord = string(float(data.scalar.pos.x(sca)), 10)
+            local y_coord = string(float(data.scalar.pos.y(sca)), 10)
+            local z_coord = string(float(data.scalar.pos.z(sca)), 10)
+            local sca_group = data.scalar.group(sca, 'domain')
+            
+            local text_line = string.build("%1, %2, %3, %4", x_coord, y_coord, z_coord, sca_group)
+            l = list.append(l, text_line)
+        end_if
+    end_loop
+    
+    file.write(f, l)
+    file.close(f)
+end
+[run_get_scalar_groups_end]

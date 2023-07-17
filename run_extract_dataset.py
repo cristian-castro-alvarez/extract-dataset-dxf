@@ -63,5 +63,7 @@ if __name__ == '__main__':
     # Extract
     data = run_extract_dataset(config=config)
     # Process & Export
+    data = data.round({'x_i': 3, 'y_i': 3, 'z_i': 3, 'x_f': 3, 'y_f': 3, 'z_f': 3})
     data = process_data(df=data)
+    data = data.drop_duplicates()
     data.to_csv('bbdd_celdas.csv', index=False)
