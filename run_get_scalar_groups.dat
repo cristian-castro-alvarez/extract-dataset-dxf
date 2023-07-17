@@ -1,5 +1,5 @@
 fish define run_get_scalar_groups
-    local f = file.open("points_and_domains.txt", "write", "text")
+    local f = file.open("points_and_domains.csv", "write", "text")
     local l = list
     
     local header_line = string.build("x, y, z, domain")
